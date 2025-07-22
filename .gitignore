@@ -16,7 +16,6 @@ venv/
 .DS_Store
 
 # Others
-.arifacts
 .env
 .venv
 env/

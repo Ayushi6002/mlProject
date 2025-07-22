@@ -9,6 +9,13 @@ from src.logger import logging
 
 from src.components.data_transformation import DataTransformation
 
+from src.components.model_trainer import ModelTrainingConfig
+
+
+from src.components.model_trainer import ModelTrainer
+
+
+
 # Configuration class for data ingestion paths
 @dataclass
 class DataIngestionConfig:
@@ -60,8 +67,12 @@ class DataIngestion:
 # ✅ Main execution block
 if __name__ == "__main__":
     obj = DataIngestion()
-    train_data, test_data = obj.initiate_data_ingestion()  # ✅ Capture returned paths
+    train_data, test_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data)  # ✅ Pass them correctly
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
 
+    model_trainer = ModelTrainer()
+    r2 = model_trainer.initiate_model_trainer(train_arr, test_arr, preprocessor_path=None)
+
+    print(f"Model training completed. R2 score: {r2}")
